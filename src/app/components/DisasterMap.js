@@ -1,7 +1,53 @@
 'use client';
+import React from 'react';
 import L from 'leaflet';
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Circle, Popup, useMap, Marker, Tooltip } from 'react-leaflet';
+
+// Fix for default markers in Leaflet with Next.js
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
+
+// Create custom icons for different types of markers
+const createCustomIcon = (color = 'blue', size = 'medium') => {
+  const sizeConfig = {
+    small: [20, 32],
+    medium: [25, 41],
+    large: [30, 49]
+  };
+  
+  return L.divIcon({
+    className: 'custom-div-icon',
+    html: `
+      <div style="
+        background-color: ${color};
+        width: ${sizeConfig[size][0]}px;
+        height: ${sizeConfig[size][1]}px;
+        border-radius: 50% 50% 50% 0;
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+        <div style="
+          color: white;
+          font-weight: bold;
+          font-size: 12px;
+          transform: rotate(45deg);
+        ">!</div>
+      </div>
+    `,
+    iconSize: sizeConfig[size],
+    iconAnchor: [sizeConfig[size][0] / 2, sizeConfig[size][1]],
+    popupAnchor: [0, -sizeConfig[size][1]]
+  });
+};
 
 // Haversine formula to calculate distance between two points (in kilometers)
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -44,13 +90,59 @@ function MapController({ center, zoom }) {
   return null;
 }
 
+// Legend component for the map
+function MapLegend() {
+  return (
+    <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4 z-1000 max-w-xs">
+      <h4 className="font-semibold text-sm mb-3 text-gray-800">Map Legend</h4>
+      <div className="space-y-2 text-xs">
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-green-500 rounded-full mr-2 border border-white shadow-sm"></div>
+          <span>Your Location</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-red-500 rounded-full mr-2 border border-white shadow-sm"></div>
+          <span>High/Critical Urgency Request</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-yellow-500 rounded-full mr-2 border border-white shadow-sm"></div>
+          <span>Medium Urgency Request</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-blue-500 rounded-full mr-2 border border-white shadow-sm"></div>
+          <span>Low Urgency Request</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-red-500 rounded-full opacity-50 mr-2 border border-white shadow-sm"></div>
+          <span>High Severity Disaster Zone</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-yellow-500 rounded-full opacity-50 mr-2 border border-white shadow-sm"></div>
+          <span>Medium Severity Disaster Zone</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-green-500 rounded-full opacity-50 mr-2 border border-white shadow-sm"></div>
+          <span>Low Severity Disaster Zone</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DisasterMap({ disasters, requests, showDisasters, userLocation, mapRef }) {
   const [selectedDisaster, setSelectedDisaster] = useState(null);
+  const [mapError, setMapError] = useState(null);
   const radiusKm = 100; // Radius in kilometers to filter disasters and requests
 
-  // Filter disasters within the specified radius of the user's location
-  const nearbyDisasters = userLocation
-    ? disasters.filter((disaster) => {
+  // Ensure disasters and requests are arrays
+  const safeDisasters = Array.isArray(disasters) ? disasters : [];
+  const safeRequests = Array.isArray(requests) ? requests : [];
+
+  // Memoize filtered data to avoid unnecessary recalculations
+  const nearbyDisasters = React.useMemo(() => {
+    if (!userLocation) return safeDisasters;
+    
+    return safeDisasters.filter((disaster) => {
       if (
         typeof disaster.latitude !== 'number' ||
         typeof disaster.longitude !== 'number' ||
@@ -66,12 +158,14 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
         disaster.longitude
       );
       return distance <= radiusKm;
-    })
-    : disasters;
+    });
+  }, [userLocation, safeDisasters, radiusKm]);
 
-  // Filter requests within the specified radius of the user's location
-  const nearbyRequests = userLocation
-    ? requests.filter((request) => {
+  // Memoize filtered requests
+  const nearbyRequests = React.useMemo(() => {
+    if (!userLocation) return safeRequests;
+    
+    return safeRequests.filter((request) => {
       if (
         typeof request.latitude !== 'number' ||
         typeof request.longitude !== 'number' ||
@@ -87,8 +181,8 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
         request.longitude
       );
       return distance <= radiusKm;
-    })
-    : requests;
+    });
+  }, [userLocation, safeRequests, radiusKm]);
 
   // Set initial map center based on user's location
   const initialCenter = userLocation
@@ -128,22 +222,33 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
     } else {
       console.warn('Invalid coordinates for request:', request);
     }
-  };
-
-  return (
-    <MapContainer
-      center={initialCenter}
-      zoom={initialZoom}
-      minZoom={3} // Allow zooming out to see larger areas
-      maxZoom={18} // Keep max zoom for detailed view
-      maxBounds={null} // Remove maxBounds to allow free panning
-      style={{ height: '100%', width: '100%' }}
-      className="rounded-xl shadow-md"
-      whenCreated={(map) => {
-        mapRef.current = map; // Assign map instance to mapRef
-        map.invalidateSize();
-      }}
-    >
+  };  return (
+    <div className="relative w-full h-full">
+      {mapError && (
+        <div className="absolute top-4 left-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded z-1000">
+          Map Error: {mapError}
+        </div>
+      )}
+      
+      <MapContainer
+        center={initialCenter}
+        zoom={initialZoom}
+        minZoom={3} // Allow zooming out to see larger areas
+        maxZoom={18} // Keep max zoom for detailed view
+        maxBounds={null} // Remove maxBounds to allow free panning
+        style={{ height: '100%', width: '100%' }}
+        className="rounded-xl shadow-md"
+        whenCreated={(map) => {
+          try {
+            mapRef.current = map; // Assign map instance to mapRef
+            map.invalidateSize();
+            setMapError(null);
+          } catch (error) {
+            console.error('Map creation error:', error);
+            setMapError(error.message);
+          }
+        }}
+      >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -154,13 +259,14 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
         <MapController center={selectedDisaster.center} zoom={selectedDisaster.zoom} />
       ) : (
         <MapController center={initialCenter} zoom={initialZoom} />
-      )}
-
-      {/* User's Location Marker */}
+      )}      {/* User's Location Marker */}
       {userLocation && (
-        <Marker position={[userLocation.latitude, userLocation.longitude]}>
+        <Marker 
+          position={[userLocation.latitude, userLocation.longitude]}
+          icon={createCustomIcon('#10B981', 'medium')}
+        >
           <Tooltip permanent>
-            Your Location
+            📍 Your Location
           </Tooltip>
         </Marker>
       )}
@@ -247,12 +353,18 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
           ) {
             console.warn('Skipping request with invalid coordinates:', request);
             return null;
-          }
+          }          const iconColor = 
+            request.urgency === 'High' || request.urgency === 'Critical'
+              ? '#EF4444' // Red for high/critical urgency
+              : request.urgency === 'Medium'
+                ? '#F59E0B' // Orange for medium urgency
+                : '#3B82F6'; // Blue for low urgency
 
           return (
             <Marker
               key={`request-${index}`}
               position={[request.latitude, request.longitude]}
+              icon={createCustomIcon(iconColor, 'medium')}
               eventHandlers={{
                 click: () => handleRequestClick(request),
               }}
@@ -275,12 +387,25 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
                       ? request.longitude.toFixed(2) + '°E'
                       : 'N/A'}
                   </p>
-                  <p>Date: {new Date(request.created_at).toLocaleDateString('en-US') || 'N/A'}</p>
+                  <p>Date: {
+                    request.created_at 
+                      ? new Date(request.created_at).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                      : 'N/A'
+                  }</p>
                 </div>
-              </Popup>
-            </Marker>
+              </Popup>            </Marker>
           );
         })}
     </MapContainer>
+    
+    {/* Map Legend */}
+    <MapLegend />
+    </div>
   );
 }
