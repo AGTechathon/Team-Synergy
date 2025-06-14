@@ -262,7 +262,7 @@ export default function SignupPage() {
 
                     {/* Progress Steps */}
                     <motion.div 
-                        className="px-6 py-4 border-b border-gray-200 bg-gray-50"
+                        className="px-6 py-4 border-b border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-500"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
@@ -307,7 +307,7 @@ export default function SignupPage() {
                                             <input
                                                 type="text"
                                                 placeholder="John Doe"
-                                                className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                                className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                                                 value={name}
                                                 onChange={(e) => setName(e.target.value.trim())}
                                                 required
@@ -327,7 +327,7 @@ export default function SignupPage() {
                                                 <input
                                                     type={showPassword ? "text" : "password"}
                                                     placeholder="Create a password"
-                                                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     required
@@ -357,7 +357,7 @@ export default function SignupPage() {
                                                 <input
                                                     type={showPassword ? "text" : "password"}
                                                     placeholder="Confirm your password"
-                                                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                                                     value={confirmPassword}
                                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                                     required
@@ -427,7 +427,7 @@ export default function SignupPage() {
                                             <input
                                                 type={contactMethod === 'email' ? "email" : "tel"}
                                                 placeholder={contactMethod === 'email' ? "john.doe@example.com" : "+1 (555) 123-4567"}
-                                                className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                                className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                                                 value={contact}
                                                 onChange={(e) => setContact(e.target.value)}
                                                 required
@@ -469,7 +469,7 @@ export default function SignupPage() {
                                             <input
                                                 type="number"
                                                 placeholder="Enter answer"
-                                                className="w-24 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                                className="w-24 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                                                 value={captchaAnswer}
                                                 onChange={(e) => setCaptchaAnswer(e.target.value)}
                                             />
@@ -485,7 +485,7 @@ export default function SignupPage() {
                                         </div>
                                         {captchaError && (
                                             <motion.div 
-                                                className="mt-2 flex items-center p-2 bg-red-50 text-red-700 rounded-lg border border-red-200"
+                                                className="mt-2 flex items-center p-2 bg-red-50 text-red-700 rounded-lg border border-red-200 text-gray-900 placeholder-gray-500"
                                                 initial={{ opacity: 0, y: -10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                             >
@@ -503,7 +503,7 @@ export default function SignupPage() {
 
                             {error && (
                                 <motion.div 
-                                    className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200"
+                                    className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200 text-gray-900 placeholder-gray-500"
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                 >
@@ -520,7 +520,7 @@ export default function SignupPage() {
                                 {activeStep > 1 ? (
                                     <motion.button
                                         type="button"
-                                        className="px-6 py-3 text-gray-600 font-medium rounded-xl border border-gray-300 hover:bg-gray-50 transition flex items-center"
+                                        className="px-6 py-3 text-gray-600 font-medium rounded-xl border border-gray-300 hover:bg-gray-50 transition flex items-center text-gray-900 placeholder-gray-500"
                                         whileHover={{ x: -5 }}
                                         onClick={prevStep}
                                     >
@@ -558,7 +558,7 @@ export default function SignupPage() {
                                             <div className="flex items-center">
                                                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                 </svg>
                                                 Creating Account...
                                             </div>
@@ -575,7 +575,7 @@ export default function SignupPage() {
                     </div>
 
                     {/* Footer */}
-                    <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                    <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 text-gray-900 placeholder-gray-500">
                         <p className="text-sm text-center text-gray-600">
                             Already have an account?{' '}
                             <a href="/login" className="font-medium text-blue-600 hover:text-blue-500 hover:underline">
@@ -586,7 +586,7 @@ export default function SignupPage() {
                 </motion.div>
 
                 <motion.footer
-                    className="relative z-10 bg-white/90 backdrop-blur-sm py-8 px-4 text-center text-gray-600 border-t border-gray-100 mt-10"
+                    className="relative z-10 bg-white/90 backdrop-blur-sm py-8 px-4 text-center text-gray-600 border-t border-gray-100 mt-10 text-gray-900 placeholder-gray-500"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.6 }}

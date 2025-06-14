@@ -145,7 +145,7 @@ export default function LoginPage() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           {/* Tabs for login method */}
-          <div className="flex border-b border-gray-200">
+          <div className="flex border-b border-gray-200 text-gray-900 placeholder-gray-500">
             <button
               className={`flex-1 py-4 font-medium text-center transition-colors ${
                 loginMethod === 'email' 
@@ -188,7 +188,7 @@ export default function LoginPage() {
                     <input
                       type="email"
                       placeholder="name@example.com"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                     />
@@ -206,7 +206,7 @@ export default function LoginPage() {
                     <input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                     />
@@ -230,7 +230,7 @@ export default function LoginPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -250,7 +250,7 @@ export default function LoginPage() {
 
               {error && (
                 <motion.div 
-                  className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200"
+                  className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200 text-gray-900 placeholder-gray-500"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -285,7 +285,7 @@ export default function LoginPage() {
             </form>
           </div>
 
-          <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+          <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 text-gray-900 placeholder-gray-500">
             <p className="text-sm text-center text-gray-600">
               Don't have an account?{' '}
               <a href="/signup" className="font-medium text-blue-600 hover:text-blue-500 hover:underline">
@@ -296,7 +296,7 @@ export default function LoginPage() {
         </motion.div>
 
         <motion.footer
-          className="relative z-10 bg-white/90 backdrop-blur-sm py-8 px-4 text-center text-gray-600 border-t border-gray-100 mt-10"
+          className="relative z-10 bg-white/90 backdrop-blur-sm py-8 px-4 text-center text-gray-600 border-t border-gray-100 mt-10 text-gray-900 placeholder-gray-500"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}

@@ -17,6 +17,7 @@
     "@neondatabase/serverless": "^1.0.0",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.6.1",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "framer-motion": "^12.15.0",
     "jsonwebtoken": "^9.0.2",

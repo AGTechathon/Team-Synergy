@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
 import pool from "../../../../../lib/db";
 import bcrypt from "bcrypt";
-import { v2 as cloudinary } from 'cloudinary';
 import jwt from 'jsonwebtoken';
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 export async function POST(req) {
   try {
@@ -18,70 +10,45 @@ export async function POST(req) {
     const name = formData.get('name');
     const contact = formData.get('contact');
     const password = formData.get('password');
-    const skills = formData.get('skills');
-    const certifications = JSON.parse(formData.get('certifications') || '[]');
-    const aadhaarImage = formData.get('aadhaarImage');
+    const role = formData.get('role') || 'responder';
+    const department = formData.get('department');
+    const certification = formData.get('certification');
 
     // Validate required fields
     if (!name || !contact || !password) {
       return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
     }
 
-    // Check if volunteer already exists
+    // Check if JWT_SECRET exists
+    if (!process.env.JWT_SECRET) {
+      return NextResponse.json({ message: "Server configuration error. Please contact administrator." }, { status: 500 });
+    }
+
+    // Check if staff already exists
     const client = await pool.connect();
-    const checkQuery = "SELECT * FROM volunteers WHERE contact = $1";
+    const checkQuery = "SELECT * FROM staff WHERE contact = $1";
     const result = await client.query(checkQuery, [contact]);
 
     if (result.rows.length > 0) {
       client.release();
-      return NextResponse.json({ message: "Volunteer already exists." }, { status: 409 });
+      return NextResponse.json({ message: "Staff member already exists." }, { status: 409 });
     }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Upload Aadhaar card image to Cloudinary if provided
-    let aadhaarImageUrl = null;
-    if (aadhaarImage && aadhaarImage instanceof File) {
-      try {
-        const arrayBuffer = await aadhaarImage.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-
-        const uploadResult = await new Promise((resolve, reject) => {
-          const uploadStream = cloudinary.uploader.upload_stream(
-            { folder: 'volunteer_aadhaar' },
-            (error, result) => {
-              if (error) {
-                console.error('Cloudinary upload error:', error);
-                reject(error);
-              } else {
-                console.log('Cloudinary upload successful:', result);
-                resolve(result);
-              }
-            }
-          );
-          uploadStream.end(buffer);
-        });
-
-        aadhaarImageUrl = uploadResult.secure_url;
-      } catch (err) {
-        client.release();
-        return NextResponse.json({ message: "Failed to upload Aadhaar card image to Cloudinary.", error: err.message }, { status: 500 });
-      }
-    }
-
-    // Insert into database
+    // Insert into staff database
     const insertQuery = `
-      INSERT INTO volunteers (name, contact, password, skills, certifications, aadhaar_image_url)
+      INSERT INTO staff (name, contact, password, role, department, certification)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
-    const values = [name, contact, hashedPassword, skills || null, certifications, aadhaarImageUrl || null];
-    const newVolunteer = await client.query(insertQuery, values);
+    const values = [name, contact, hashedPassword, role, department || null, certification || null];
+    const newStaff = await client.query(insertQuery, values);
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: newVolunteer.rows[0].id, contact: newVolunteer.rows[0].contact },
+      { id: newStaff.rows[0].id, contact: newStaff.rows[0].contact, name: newStaff.rows[0].name, role: newStaff.rows[0].role },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -89,8 +56,8 @@ export async function POST(req) {
     client.release();
     return NextResponse.json(
       {
-        message: "Volunteer created successfully.",
-        volunteer: newVolunteer.rows[0],
+        message: "Staff member created successfully.",
+        staff: newStaff.rows[0],
         token: token
       },
       { status: 201 }
