@@ -1,6 +1,6 @@
-# 🌍 RescueConnect AI
+# 🌍 RakshaMitra AI
 
-**AI-Powered Disaster Relief Coordination System**  
+**AI-Powered Disaster Relief Coordination System**
 A cutting-edge platform built to streamline disaster response through intelligent mapping, instant alerts, automated damage assessment, and secure coordination. Real-time coordination between victims, volunteers, and authorities via live mapping (Leaflet.js) and secure communication.
 
 **By : Team Synergy**

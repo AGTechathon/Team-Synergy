@@ -1,4 +1,4 @@
--- RescueConnect AI Database Schema
+-- RakshaMitra AI Database Schema
 -- Initialize all required tables for the disaster management system
 
 -- Users table for victims and general users
