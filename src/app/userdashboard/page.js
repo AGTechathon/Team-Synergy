@@ -261,7 +261,6 @@ function RequestPage() {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-UUUUUUU
     // Step 1 validations
     const nameError = validateName(name);
     if (nameError) {

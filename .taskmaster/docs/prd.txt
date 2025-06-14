@@ -1,0 +1,120 @@
+# RescueConnect AI - Backend Fix & Enhancement PRD
+
+## Project Overview
+Fix critical backend issues and enhance the disaster management platform for AGTechathon 2k25. The application is a Next.js-based disaster relief coordination system that needs immediate backend fixes and feature enhancements.
+
+## Current Status
+- Frontend: 85% functional with excellent UI/UX
+- Backend APIs: 30% functional due to database connection issues
+- Third-party integrations: 0% functional (not configured)
+
+## Critical Issues to Address
+
+### 1. Database Connection & Environment Setup
+- Fix missing DATABASE_URL and environment variables
+- Establish NeonDB PostgreSQL connection
+- Configure JWT authentication secrets
+- Set up proper error handling for database operations
+
+### 2. API Endpoints - Core Functionality
+- Fix existing broken API routes (/api/requests, /api/alerts)
+- Implement missing /api/volunteers endpoint
+- Fix authentication flows (user/staff login/signup)
+- Ensure proper form data handling and validation
+
+### 3. Third-Party Service Integrations
+- Configure Cloudinary for image storage
+- Set up Twilio for SMS alerts
+- Implement Nodemailer for email notifications
+- Add proper error handling for service failures
+
+### 4. Code Quality & Bug Fixes
+- Fix syntax errors (userdashboard/page.js line 264)
+- Improve error messages and user feedback
+- Add proper logging and monitoring
+- Implement rate limiting for API endpoints
+
+## New Features to Implement
+
+### 1. Enhanced Disaster Management
+- Real-time disaster tracking with geolocation
+- Automated severity assessment
+- Multi-channel alert distribution system
+- Emergency contact management
+
+### 2. Volunteer Coordination System
+- Volunteer registration and verification
+- Skill-based matching for disaster response
+- Task assignment and tracking
+- Communication channels between volunteers and victims
+
+### 3. Advanced Mapping Features
+- Real-time disaster visualization
+- Route optimization for emergency response
+- Resource location tracking
+- Evacuation route planning
+
+### 4. AI-Powered Features
+- Intelligent request prioritization
+- Automated damage assessment from images
+- Predictive analytics for disaster response
+- Chatbot for emergency guidance
+
+## Technical Requirements
+
+### Database Schema
+- Users table (victims, volunteers, staff)
+- Requests table (emergency requests)
+- Disasters table (disaster events)
+- Alerts table (notification system)
+- Volunteers table (volunteer management)
+- Tasks table (volunteer task assignments)
+
+### API Endpoints Required
+- POST /api/user/signup, /api/user/login
+- POST /api/staff/signup, /api/staff/login
+- GET/POST /api/requests (emergency requests)
+- GET/POST /api/alerts (alert system)
+- GET/POST /api/volunteers (volunteer management)
+- GET/POST /api/disasters (disaster tracking)
+- POST /api/notifications (multi-channel notifications)
+
+### Environment Variables Needed
+- DATABASE_URL (NeonDB connection)
+- JWT_SECRET (authentication)
+- CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+- TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+- NODEMAILER_EMAIL, NODEMAILER_PASSWORD
+
+## Success Criteria
+1. All API endpoints return proper responses (200/201 for success)
+2. Database operations work reliably
+3. Image upload functionality operational
+4. SMS and email notifications functional
+5. Real-time mapping displays disasters and requests
+6. Volunteer-victim matching system operational
+7. All forms submit successfully with proper validation
+8. Error handling provides meaningful feedback
+
+## Deployment Requirements
+- Environment variables configured
+- Database migrations completed
+- Third-party services authenticated
+- SSL certificates for production
+- Load balancing for scalability
+
+## Timeline Priority
+1. Critical fixes (database, environment, core APIs) - Immediate
+2. Missing API endpoints and authentication - High
+3. Third-party integrations - High  
+4. New features and enhancements - Medium
+5. Advanced AI features - Low
+
+## Testing Strategy
+- Unit tests for API endpoints
+- Integration tests for database operations
+- End-to-end testing for user flows
+- Load testing for disaster scenarios
+- Manual testing for hackathon demo
+
+This PRD focuses on creating a fully functional disaster management platform ready for hackathon presentation with proper backend infrastructure and enhanced features.
