@@ -126,3 +126,216 @@ export default function App() {
     </LocationContext.Provider>
   );
 }
+
+
+function PlaceholderPage({ title }) {
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [volunteers, setVolunteers] = useState([]);
+  const [emergencyType, setEmergencyType] = useState('');
+  const [description, setDescription] = useState('');
+
+  const emergencyTypes = [
+    'Medical Emergency',
+    'Natural Disaster',
+    'Fire',
+    'Rescue Operation',
+    'Food/Water Shortage',
+    'Other'
+  ];
+
+  // Fetch volunteers from the database
+useEffect(() => {
+  const fetchVolunteers = async () => {
+    try {
+      const response = await fetch('/api/volunteers', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch volunteers');
+      }
+      
+      const data = await response.json();
+      setVolunteers(data);
+    } catch (err) {
+      console.error('Error fetching volunteers:', err);
+      setError('Failed to load volunteer data');
+    }
+  };
+
+  fetchVolunteers();
+}, []);
+
+  const handleSendAlert = async () => {
+  setError('');
+  setSuccessMessage('');
+  setIsLoading(true);
+
+  if (!emergencyType) {
+    setError('Please select an emergency type');
+    setIsLoading(false);
+    return;
+  }
+
+  if (volunteers.length === 0) {
+    setError('No volunteers available to notify');
+    setIsLoading(false);
+    return;
+  }
+
+  // Prepare alert data
+  const alertData = {
+    emergencyType,
+    description,
+    message: `EMERGENCY ALERT: ${emergencyType}
+              ${description ? `Details: ${description}` : ''}
+              Volunteers needed with skills in: ${[...new Set(volunteers.map(v => v.skills))].join(', ')}`
+  };
+
+  try {
+    const response = await fetch('/api/alerts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(alertData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to send alert');
+    }
+
+    const result = await response.json();
+    setSuccessMessage(`Alert sent to ${result.totalRecipients} volunteers (${result.successfulSends} successful)`);
+  } catch (err) {
+    console.error('Error sending alert:', err);
+    setError(err.message || 'Failed to send alert. Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+  // Get current time in IST
+  const getCurrentTime = () => {
+    return new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
+  return (
+    <motion.div
+      className="flex flex-col items-center justify-center min-h-[60vh]"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      <div className="bg-gradient-to-r from-red-600 to-orange-600 p-5 rounded-full mb-6">
+        <FiAlertCircle size={40} className="text-white" />
+      </div>
+      <h2 className="text-3xl font-bold text-gray-800 mb-4">{title}</h2>
+      <p className="text-gray-600 max-w-md text-center mb-8">
+        Send emergency alerts to all registered volunteers.
+      </p>
+
+      <div className="w-full max-w-md bg-white rounded-xl shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">Emergency Details</h3>
+        
+        <div className="mb-5">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Type*</label>
+          <select
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            value={emergencyType}
+            onChange={(e) => setEmergencyType(e.target.value)}
+            required
+          >
+            <option value="">Select emergency type</option>
+            {emergencyTypes.map((type, index) => (
+              <option key={index} value={type}>{type}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-5">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Additional Details (Optional)</label>
+          <textarea
+            placeholder="Provide more details about the emergency..."
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            rows="3"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+          <p className="text-sm text-blue-800">
+            <strong>Note:</strong> This alert will be sent to all {volunteers.length} registered volunteers.
+          </p>
+        </div>
+
+        {error && (
+          <motion.div
+            className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200 mb-4"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <FiAlertTriangle className="h-5 w-5 mr-2" />
+            <span>{error}</span>
+          </motion.div>
+        )}
+
+        {successMessage && (
+          <motion.div
+            className="flex items-center p-3 bg-green-50 text-green-700 rounded-lg border border-green-200 mb-4"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <FiSend className="h-5 w-5 mr-2" />
+            <span>{successMessage}</span>
+          </motion.div>
+        )}
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`w-full px-8 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-xl shadow-md flex items-center justify-center ${
+            isLoading ? 'opacity-80 cursor-not-allowed' : ''
+          }`}
+          onClick={handleSendAlert}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <div className="flex items-center">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Sending Alert...
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <FiAlertTriangle className="h-5 w-5 mr-2" />
+              Send Alert to All Volunteers
+            </div>
+          )}
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+}
