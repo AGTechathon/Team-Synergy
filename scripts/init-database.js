@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Database Initialization Script for RescueConnect AI
+ * Database Initialization Script for RakshaMitra AI
  * Run this script to set up the database schema and sample data
- * 
+ *
  * Usage: node scripts/init-database.js
  */
 
@@ -59,7 +59,7 @@ async function initializeDatabase() {
     console.log(`   ✓ Volunteers: ${volunteerCount.rows[0].count}`);
     console.log(`   ✓ Disasters: ${disasterCount.rows[0].count}`);
     
-    console.log('\n🎉 Database is ready for RescueConnect AI!');
+    console.log('\n🎉 Database is ready for RakshaMitra AI!');
     console.log('💡 You can now start the application with: npm run dev');
     
   } catch (error) {
