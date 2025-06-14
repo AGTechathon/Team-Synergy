@@ -9,7 +9,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "init-db": "node scripts/init-database.js",
+    "setup": "npm run init-db && npm run dev"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
