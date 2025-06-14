@@ -1,25 +1,36 @@
-import { Client } from '@neondatabase/serverless';
 import { NextResponse } from 'next/server';
+import pool from '../../../../lib/db';
 
 export async function GET() {
   try {
-    const client = new Client(process.env.DATABASE_URL);
-    await client.connect();
+    const client = await pool.connect();
 
     const query = `
       SELECT id, name, contact, type, urgency, description, latitude, longitude, status, created_at, image_url
       FROM requests
-      WHERE status = 'pending' OR urgency = 'emergency';
+      WHERE status = 'pending' OR urgency = 'Critical'
+      ORDER BY created_at DESC, urgency DESC;
     `;
-    const { rows } = await client.query(query);
+    const result = await client.query(query);
+    client.release();
 
-    await client.end();
-
-    return NextResponse.json(rows, { status: 200 });
+    return NextResponse.json(
+      {
+        message: "Requests retrieved successfully.",
+        requests: result.rows,
+        count: result.rows.length
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error fetching requests:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch requests', details: error.message },
+      {
+        message: 'Failed to fetch requests',
+        error: error.message,
+        requests: [],
+        count: 0
+      },
       { status: 500 }
     );
   }
