@@ -57,16 +57,22 @@ export async function POST(req) {
 
     // Insert into database
     const insertQuery = `
-      INSERT INTO users (name, contact, password, created_at)
+      INSERT INTO users (name, contact, password, contact_method)
       VALUES ($1, $2, $3, $4)
       RETURNING *;
     `;
-    const values = [name, contact, hashedPassword, '2025-05-31 11:19:00']; // Current timestamp
+    const values = [name, contact, hashedPassword, contactMethod];
     const newUser = await client.query(insertQuery, values);
+
+    // Check if JWT_SECRET exists
+    if (!process.env.JWT_SECRET) {
+      client.release();
+      return NextResponse.json({ message: "Server configuration error. Please contact administrator." }, { status: 500 });
+    }
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: newUser.rows[0].id, contact: newUser.rows[0].contact },
+      { id: newUser.rows[0].id, contact: newUser.rows[0].contact, name: newUser.rows[0].name },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
