@@ -141,7 +141,7 @@ export default function LoginPage() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           {/* Tabs for login method */}
-          <div className="flex border-b border-gray-200">
+          <div className="flex border-b border-gray-200 text-gray-900 placeholder-gray-500">
             <button
               className={`flex-1 py-4 font-medium text-center transition-colors ${
                 loginMethod === 'email' 
@@ -184,7 +184,7 @@ export default function LoginPage() {
                     <input
                       type="email"
                       placeholder="name@example.com"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                     />
@@ -202,7 +202,7 @@ export default function LoginPage() {
                     <input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                     />
@@ -226,7 +226,7 @@ export default function LoginPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -251,7 +251,7 @@ export default function LoginPage() {
 
               {error && (
                 <motion.div 
-                  className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200"
+                  className="flex items-center p-3 bg-red-50 text-red-700 rounded-lg border border-red-200 text-gray-900 placeholder-gray-500"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -288,7 +288,7 @@ export default function LoginPage() {
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
+                  <div className="w-full border-t border-gray-300 text-gray-900 placeholder-gray-500"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">Or continue with</span>
@@ -296,21 +296,21 @@ export default function LoginPage() {
               </div>
 
               {/* <div className="mt-6 grid grid-cols-3 gap-3">
-                <button className="w-full flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
+                <button className="w-full flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition text-gray-900 placeholder-gray-500">
                   <div className="h-5 w-5">
                     <svg className="text-gray-700" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/>
                     </svg>
                   </div>
                 </button>
-                <button className="w-full flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
+                <button className="w-full flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition text-gray-900 placeholder-gray-500">
                   <div className="h-5 w-5">
                     <svg className="text-gray-700" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/>
                     </svg>
                   </div>
                 </button>
-                <button className="w-full flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
+                <button className="w-full flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition text-gray-900 placeholder-gray-500">
                   <div className="h-5 w-5">
                     <svg className="text-gray-700" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.385.6.113.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.745.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.495.998.108-.775.42-1.305.763-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.312.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.908 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.905-.015 3.3 0 .315.21.69.825.57C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z"/>
@@ -321,7 +321,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+          <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 text-gray-900 placeholder-gray-500">
             <p className="text-sm text-center text-gray-600">
               Don't have an account?{' '}
               <a href="/signup" className="font-medium text-blue-600 hover:text-blue-500 hover:underline">

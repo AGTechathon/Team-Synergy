@@ -17,10 +17,10 @@ export async function POST(req) {
       return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
     }
 
-    // Validate name (letters and spaces, min 2 characters)
-    const nameRegex = /^[A-Za-z\s]{2,}$/;
-    if (!nameRegex.test(name)) {
-      return NextResponse.json({ message: "Name must contain only letters and spaces, minimum 2 characters." }, { status: 400 });
+    // Validate name (letters, spaces, and common name characters, min 2 characters)
+    const nameRegex = /^[A-Za-z\s.'-]{2,50}$/;
+    if (!nameRegex.test(name.trim())) {
+      return NextResponse.json({ message: "Name must contain only letters, spaces, and common punctuation (. ' -), minimum 2 characters." }, { status: 400 });
     }
 
     // Validate contact based on contactMethod

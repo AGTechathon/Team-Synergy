@@ -22,8 +22,8 @@ export async function POST(req) {
     const client = await pool.connect();
     console.log("Database connection established");
 
-    // Check if the volunteer exists by contact (email or phone)
-    const checkQuery = "SELECT * FROM volunteers WHERE contact = $1";
+    // Check if the staff member exists by contact (email or phone)
+    const checkQuery = "SELECT * FROM staff WHERE contact = $1";
     const result = await client.query(checkQuery, [contact]);
     console.log("Check query result:", result.rows);
 
@@ -32,10 +32,10 @@ export async function POST(req) {
       return NextResponse.json({ message: "Invalid credentials." }, { status: 401 });
     }
 
-    const volunteer = result.rows[0];
+    const staff = result.rows[0];
 
     // Compare the provided password with the stored hashed password
-    const isMatch = await bcrypt.compare(password, volunteer.password);
+    const isMatch = await bcrypt.compare(password, staff.password);
     console.log("Password match:", isMatch);
 
     if (!isMatch) {
@@ -45,10 +45,10 @@ export async function POST(req) {
 
     client.release();
 
-    // Return success response with volunteer details (excluding password)
-    const { password: _, ...volunteerWithoutPassword } = volunteer;
+    // Return success response with staff details (excluding password)
+    const { password: _, ...staffWithoutPassword } = staff;
     return NextResponse.json(
-      { message: "Login successful.", volunteer: volunteerWithoutPassword },
+      { message: "Login successful.", staff: staffWithoutPassword },
       { status: 200 }
     );
 
