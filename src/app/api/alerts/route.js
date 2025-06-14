@@ -1,9 +1,6 @@
-import { Pool } from 'pg';
+import { NextResponse } from 'next/server';
+import pool from '../../../../lib/db';
 import twilio from 'twilio';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
 
 const twilioClient = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN
   ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
@@ -13,16 +10,21 @@ export async function POST(request) {
   try {
     const { emergencyType, description, message } = await request.json();
     
+    const client = await pool.connect();
+    
     // 1. Get all volunteers and users
-    const { rows: volunteers } = await pool.query(`
-      SELECT id, name, contact, skills 
+    const { rows: volunteers } = await client.query(`
+      SELECT id, name, contact, skills
       FROM volunteers
+      WHERE status = 'active'
     `);
 
-    const { rows: users } = await pool.query(`
-      SELECT id, name, contact 
+    const { rows: users } = await client.query(`
+      SELECT id, name, contact
       FROM users
     `);
+    
+    client.release();
 
     const allRecipients = [
       ...volunteers.map(v => ({ ...v, type: 'volunteer' })),
@@ -30,7 +32,7 @@ export async function POST(request) {
     ];
 
     if (allRecipients.length === 0) {
-      return Response.json(
+      return NextResponse.json(
         { message: 'No recipients (volunteers or users) available to notify' },
         { status: 400 }
       );
@@ -67,7 +69,7 @@ export async function POST(request) {
     const successfulVolunteerSends = sentResults.filter(r => r.success && r.type === 'volunteer').length;
     const successfulUserSends = sentResults.filter(r => r.success && r.type === 'user').length;
 
-    return Response.json({ 
+    return NextResponse.json({
       message: 'Alert processing completed',
       totalRecipients: allRecipients.length,
       totalVolunteers: volunteers.length,
@@ -81,7 +83,7 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Error processing alert:', error);
-    return Response.json(
+    return NextResponse.json(
       { message: 'Error processing alert', error: error.message },
       { status: 500 }
     );
