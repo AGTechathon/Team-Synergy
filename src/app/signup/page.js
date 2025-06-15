@@ -289,7 +289,7 @@ export default function SignupPage() {
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-teal-100 p-4">
             {/* Decorative background elements */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <div className="absolute top-20 left-10 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-20 left-10 w-64 h-64 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
                 <div className="absolute top-40 right-20 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
                 <div className="absolute bottom-20 left-1/3 w-60 h-60 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
             </div>
@@ -301,7 +301,7 @@ export default function SignupPage() {
                 transition={{ duration: 0.5 }}
             >
                 {/* Header Section */}
-                <div className="bg-gradient-to-r from-blue-600 to-teal-600 p-6 sm:p-8 text-white">
+                <div className="bg-gradient-to-r from-green-600 to-teal-600 p-6 sm:p-8 text-white">
                     <motion.div 
                         className="flex items-center justify-center mb-4"
                         initial={{ opacity: 0, y: -20 }}
@@ -314,7 +314,7 @@ export default function SignupPage() {
                         <h1 className="text-2xl font-bold">Volunteer Registration</h1>
                     </motion.div>
                     <motion.p 
-                        className="text-center text-blue-100 max-w-xl mx-auto"
+                        className="text-center text-green-100 max-w-xl mx-auto"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
@@ -448,7 +448,7 @@ export default function SignupPage() {
                                             type="button"
                                             className={`flex-1 py-3 rounded-xl border transition-colors ${
                                                 contactMethod === 'email' 
-                                                    ? 'border-blue-500 bg-blue-50 text-blue-600' 
+                                                    ? 'border-blue-500 bg-green-50 text-blue-600' 
                                                     : 'border-gray-300 text-gray-600 hover:bg-gray-50'
                                             }`}
                                             onClick={() => setContactMethod('email')}
@@ -462,7 +462,7 @@ export default function SignupPage() {
                                             type="button"
                                             className={`flex-1 py-3 rounded-xl border transition-colors ${
                                                 contactMethod === 'phone' 
-                                                    ? 'border-blue-500 bg-blue-50 text-blue-600' 
+                                                    ? 'border-blue-500 bg-green-50 text-blue-600' 
                                                     : 'border-gray-300 text-gray-600 hover:bg-gray-50'
                                             }`}
                                             onClick={() => setContactMethod('phone')}
@@ -533,7 +533,7 @@ export default function SignupPage() {
                                     <h3 className="font-medium text-gray-700 mb-3">Certifications</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {['First Aid', 'CPR', 'EMT', 'Fire Safety', 'Search & Rescue', 'Crisis Counseling'].map((cert, index) => (
-                                            <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">
+                                            <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-green-50">
                                                 <input 
                                                     type="checkbox" 
                                                     className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
@@ -719,7 +719,7 @@ export default function SignupPage() {
                             ) : (
                                 <motion.button
                                     type="submit"
-                                    className={`px-8 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all flex items-center ${
+                                    className={`px-8 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all flex items-center ${
                                         isLoading ? 'opacity-80 cursor-not-allowed' : ''
                                     }`}
                                     whileHover={!isLoading ? { scale: 1.05 } : {}}

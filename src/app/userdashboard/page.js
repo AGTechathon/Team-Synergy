@@ -60,7 +60,7 @@ export default function App() {
 
   return (
     <LocationContext.Provider value={{ location, setLocation }}>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-100">
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
         {/* Floating Navbar */}
         <motion.nav
           className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-2xl w-full px-4 ${isNavOpen ? 'backdrop-blur-lg' : ''}`}
@@ -73,7 +73,7 @@ export default function App() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="absolute -top-2 right-0 bg-gradient-to-r from-blue-600 to-teal-600 text-white p-3 rounded-full shadow-lg"
+              className="absolute -top-2 right-0 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-3 rounded-full shadow-lg"
               onClick={() => setIsNavOpen(!isNavOpen)}
               aria-label={isNavOpen ? 'Close navigation' : 'Open navigation'}
             >
@@ -95,7 +95,7 @@ export default function App() {
                       whileTap={{ scale: 0.95 }}
                       className={`flex flex-col items-center p-3 rounded-xl transition-all ${
                         activePage === item.id
-                          ? 'bg-gradient-to-r from-blue-600 to-teal-600 text-white shadow-lg'
+                          ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg'
                           : 'bg-white/90 hover:bg-gray-100 text-gray-700'
                       }`}
                       onClick={() => {
@@ -420,7 +420,7 @@ function RequestPage() {
   return (
     <div className="flex items-center justify-center p-4">
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-20 left-10 w-64 h-64 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div className="absolute top-40 right-20 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-20 left-1/3 w-60 h-60 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
@@ -431,7 +431,7 @@ function RequestPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="bg-gradient-to-r from-blue-600 to-teal-600 p-6 sm:p-8 text-white">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-600 p-6 sm:p-8 text-white">
           <motion.div
             className="flex items-center justify-center mb-4"
             initial={{ opacity: 0, y: -20 }}
@@ -444,7 +444,7 @@ function RequestPage() {
             <h1 className="text-2xl font-bold">Submit a Request</h1>
           </motion.div>
           <motion.p
-            className="text-center text-blue-100 max-w-xl mx-auto"
+            className="text-center text-green-100 max-w-xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -464,7 +464,7 @@ function RequestPage() {
               <div key={step} className="flex flex-col items-center flex-1">
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    step <= activeStep ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+                    step <= activeStep ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-500'
                   }`}
                 >
                   {step}
@@ -491,7 +491,7 @@ function RequestPage() {
                     </div>                    <input
                       type="text"
                       placeholder="John Doe"
-                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
+                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition placeholder-gray-500"
                       value={name}
                       onChange={(e) => setName(e.target.value.trim())}
                       required
@@ -507,7 +507,7 @@ function RequestPage() {
                     </div>                    <input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
-                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
+                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                       required
@@ -525,11 +525,11 @@ function RequestPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Request Type</label>
                   <div className="grid grid-cols-2 gap-3">
                     {requestTypes.map((reqType, index) => (
-                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">                        <input
+                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-green-50">                        <input
                           type="radio"
                           name="type"
                           value={reqType}
-                          className="h-4 w-4 text-blue-600 border-2 border-gray-800 bg-white rounded focus:ring-blue-500"
+                          className="h-4 w-4 text-green-600 border-2 border-gray-800 bg-white rounded focus:ring-green-500"
                           checked={type === reqType}
                           onChange={(e) => setType(e.target.value)}
                           required
@@ -544,11 +544,11 @@ function RequestPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Urgency Level</label>
                   <div className="grid grid-cols-2 gap-3">
                     {urgencyLevels.map((level, index) => (
-                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">                        <input
+                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-green-50">                        <input
                           type="radio"
                           name="urgency"
                           value={level}
-                          className="h-4 w-4 text-blue-600 border-2 border-gray-800 bg-white rounded focus:ring-blue-500"
+                          className="h-4 w-4 text-green-600 border-2 border-gray-800 bg-white rounded focus:ring-green-500"
                           checked={urgency === level}
                           onChange={(e) => setUrgency(e.target.value)}
                           required
@@ -566,7 +566,7 @@ function RequestPage() {
                       <FiMessageSquare className="h-5 w-5 text-gray-400" />
                     </div>                    <textarea
                       placeholder="Describe your request (e.g., need medical supplies for 10 people)"
-                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
+                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition placeholder-gray-500"
                       rows="4"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
@@ -590,7 +590,7 @@ function RequestPage() {
                         type="number"
                         step="any"
                         placeholder="e.g., 40.7128"
-                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
+                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition placeholder-gray-500"
                         value={latitude}
                         onChange={(e) => setLatitude(e.target.value)}
                         required
@@ -607,7 +607,7 @@ function RequestPage() {
                         type="number"
                         step="any"
                         placeholder="e.g., -74.0060"
-                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
+                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition placeholder-gray-500"
                         value={longitude}
                         onChange={(e) => setLongitude(e.target.value)}
                         required
@@ -618,7 +618,7 @@ function RequestPage() {
 
                 <motion.button
                   type="button"
-                  className="mt-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition flex items-center"
+                  className="mt-4 px-4 py-2 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition flex items-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={getCurrentLocation}
@@ -636,7 +636,7 @@ function RequestPage() {
                   <div className="relative">                    <input
                       type="file"
                       accept="image/jpeg,image/png,image/gif"
-                      className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
                       onChange={handleImageChange}
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -711,7 +711,7 @@ function RequestPage() {
               {activeStep < 3 ? (
                 <motion.button
                   type="button"
-                  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition flex items-center"
+                  className="px-6 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition flex items-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={nextStep}
@@ -722,7 +722,7 @@ function RequestPage() {
               ) : (
                 <motion.button
                   type="submit"
-                  className={`px-8 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all flex items-center ${
+                  className={`px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all flex items-center ${
                     isLoading ? 'opacity-80 cursor-not-allowed' : ''
                   }`}
                   whileHover={!isLoading ? { scale: 1.05 } : {}}
@@ -908,7 +908,7 @@ useEffect(() => {
         
         // Display WhatsApp links for manual sending
         const linksHtml = whatsappResult.links.map(link => 
-          `<a href="${link.whatsappUrl}" target="_blank" class="text-blue-600 hover:underline block py-1">${link.name} (${link.phone})</a>`
+          `<a href="${link.whatsappUrl}" target="_blank" class="text-green-600 hover:underline block py-1">${link.name} (${link.phone})</a>`
         ).join('');
         
         successMsg += `<br><br><strong>📱 WhatsApp Links:</strong><br>${linksHtml}`;
@@ -973,7 +973,7 @@ useEffect(() => {
         
         <div className="mb-5">
           <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Type*</label>          <select
-            className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
             value={emergencyType}
             onChange={(e) => setEmergencyType(e.target.value)}
             required
@@ -986,7 +986,7 @@ useEffect(() => {
         </div>        <div className="mb-5">
           <label className="block text-sm font-medium text-gray-700 mb-1">Additional Details (Optional)</label>          <textarea
             placeholder="Provide more details about the emergency..."
-            className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
+            className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition placeholder-gray-500"
             rows="3"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -1001,7 +1001,7 @@ useEffect(() => {
                 type="checkbox"
                 checked={true}
                 disabled
-                className="h-4 w-4 text-blue-600 border-2 border-gray-400 rounded focus:ring-blue-500"
+                className="h-4 w-4 text-green-600 border-2 border-gray-400 rounded focus:ring-green-500"
               />
               <span className="ml-2 text-gray-700">📱 SMS (Always enabled)</span>
             </label>
@@ -1020,7 +1020,7 @@ useEffect(() => {
           </p>
         </div>
 
-        <div className="mb-4 p-3 bg-blue-50 rounded-lg"><p className="text-sm text-blue-800">
+        <div className="mb-4 p-3 bg-green-50 rounded-lg"><p className="text-sm text-green-800">
             <strong>Note:</strong> This alert will be sent to all {Array.isArray(volunteers) ? volunteers.length : 0} registered volunteers.
           </p>
         </div>

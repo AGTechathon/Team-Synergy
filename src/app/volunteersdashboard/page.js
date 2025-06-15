@@ -238,14 +238,14 @@ export default function VolunteersDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-teal-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-teal-100">
         <p className="text-lg text-gray-700">Loading requests...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -327,11 +327,10 @@ export default function VolunteersDashboard() {
                   >
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {request.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    </td>                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <a
                         href={`tel:${request.contact}`}
-                        className="text-blue-600 hover:text-blue-800"
+                        className="text-green-600 hover:text-green-800"
                       >
                         {request.contact}
                       </a>
@@ -357,10 +356,9 @@ export default function VolunteersDashboard() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <a
-                        href={`https://www.google.com/maps?q=${request.latitude},${request.longitude}`}
-                        target="_blank"
+                        href={`https://www.google.com/maps?q=${request.latitude},${request.longitude}`}                        target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 flex items-center"
+                        className="text-green-600 hover:text-green-800 flex items-center"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -388,12 +386,11 @@ export default function VolunteersDashboard() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          request.status === 'pending'
-                            ? 'bg-gray-100 text-gray-800'
+                          request.status === 'pending'                            ? 'bg-gray-100 text-gray-800'
                             : request.status === 'accepted'
                             ? 'bg-green-100 text-green-800'
                             : request.status === 'completed'
-                            ? 'bg-blue-100 text-blue-800'
+                            ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
                         }`}
                       >
@@ -404,9 +401,8 @@ export default function VolunteersDashboard() {
                       {request.image_url ? (
                         <a
                           href={request.image_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800"
+                          target="_blank"                          rel="noopener noreferrer"
+                          className="text-green-600 hover:text-green-800"
                         >
                           View Image
                         </a>
@@ -421,11 +417,10 @@ export default function VolunteersDashboard() {
                         timeStyle: 'short',
                       })}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {request.status === 'pending' ? (
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">                      {request.status === 'pending' ? (
                         <button
                           onClick={() => handleAcceptRequest(request.id)}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                         >
                           Accept
                         </button>

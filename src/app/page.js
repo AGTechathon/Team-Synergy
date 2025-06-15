@@ -68,8 +68,7 @@ export default function HomePage() {
     return () => cancelAnimationFrame(animationFrame);
   }, []);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-100 relative overflow-hidden">
+  return (    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 relative overflow-hidden">
       {/* Enhanced background with animated gradient */}
       <motion.div 
         className="absolute top-0 left-0 w-full h-full overflow-hidden"
@@ -77,7 +76,7 @@ export default function HomePage() {
         animate={{ opacity: 0.4 }}
         transition={{ duration: 2 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-200/20 via-teal-200/20 to-cyan-200/20 animate-gradient-xy"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-green-200/20 via-emerald-200/20 to-teal-200/20 animate-gradient-xy"></div>
       </motion.div>
 
       {/* Navigation Bar */}
@@ -86,44 +85,13 @@ export default function HomePage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center"
-        >
-          <div className="bg-blue-600 w-10 h-10 rounded-lg flex items-center justify-center">
+          className="flex items-center"        >
+          <div className="bg-green-600 w-10 h-10 rounded-lg flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
-          </div>
-          <span className="ml-3 text-xl font-bold text-gray-800">RakshaMitra AI</span>
+          </div>          <span className="ml-3 text-xl font-bold text-gray-800">RakshaMitra AI</span>
         </motion.div>
-        
-        <motion.a
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              href="/user/signup"
-              className="px-8 py-4 bg-white text-gray-900 font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
-              Create User
-            </motion.a>
-            <motion.a
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              href="/user/login"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-              </svg>
-              Login User
-            </motion.a>
       </nav>
 
       {/* Main Content */}
@@ -138,7 +106,7 @@ export default function HomePage() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-4 py-1 rounded-full bg-blue-100 text-blue-600 font-medium mb-6"
+            className="inline-flex items-center px-4 py-1 rounded-full bg-green-100 text-green-600 font-medium mb-6"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -153,7 +121,7 @@ export default function HomePage() {
             className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
           >
             <span className="block">Connecting Help</span>
-            <span className="block bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
               When Disaster Strikes
             </span>
           </motion.h1>
@@ -165,9 +133,7 @@ export default function HomePage() {
             className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-10"
           >
             A decentralized platform for real-time emergency coordination, rescue requests, and volunteer deployment during natural or man-made disasters.
-          </motion.p>
-          
-          <motion.div
+          </motion.p>          <motion.div
             className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -176,51 +142,35 @@ export default function HomePage() {
             <motion.a
               whileHover={{ 
                 scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)"
+                boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.5)"
               }}
               whileTap={{ scale: 0.95 }}
               href="/login"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
+              className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
               </svg>
-              Login Volunteer
+              Volunteer Login
             </motion.a>
             
             <motion.a
               whileHover={{ 
                 scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              href="/signup"
-              className="px-8 py-4 bg-white text-gray-900 font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
-              Create Volunteer
-            </motion.a>
-            <motion.a
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)"
+                boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.5)"
               }}
               whileTap={{ scale: 0.95 }}
               href="/userdashboard"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
+              className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
-              User Request
+              Emergency Request
             </motion.a>
-          </motion.div>
-
-          {/* Rescue Statistics */}
+          </motion.div>{/* Rescue Statistics */}
           <motion.div 
-            className="bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl shadow-xl p-8 mb-16"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl shadow-xl p-8 mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
@@ -339,9 +289,8 @@ export default function HomePage() {
                     className="flex flex-col items-center text-center p-6 bg-white rounded-xl border border-gray-100 shadow-md hover:shadow-lg transition-shadow"
                     whileHover={{ y: -10 }}
                     transition={{ duration: 0.3 }}
-                  >
-                    <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  >                    <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={feature.icon} />
                       </svg>
                     </div>
@@ -449,42 +398,7 @@ export default function HomePage() {
               </div>
             </div>
           </motion.div>
-        </motion.div>
-      </main>
-
-      {/* Footer */}
-      <motion.footer 
-        className="relative z-10 bg-white/90 backdrop-blur-sm py-8 px-4 text-center text-gray-600 border-t border-gray-100"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.3, duration: 0.6 }}
-      >
-<div className="max-w-6xl mx-auto">
-  <p>© 2025 Disaster Crisis Response Platform. All rights reserved.</p>
-  <p className="mt-2 text-sm">Last updated: 10:30 AM IST on Sunday, June 8, 2025</p>
-  <p className="mt-2 text-sm">Built by Team Synergy</p>
-  <div className="mt-4 flex justify-center space-x-6">
-    <a href="mailto:wajiddaudtamboli123@gmail.com" className="text-gray-500 hover:text-blue-600">
-      <span className="sr-only">Gmail</span>
-      <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-      </svg>
-    </a>
-    <a href="https://github.com/wajiddaudtamboli" className="text-gray-500 hover:text-blue-600">
-      <span className="sr-only">GitHub</span>
-      <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-      </svg>
-    </a>
-    <a href="https://www.linkedin.com/in/wajid-daud-tamboli-3217b031a" className="text-gray-500 hover:text-blue-600">
-      <span className="sr-only">LinkedIn</span>
-      <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
-      </svg>
-    </a>
-  </div>
-</div>
-      </motion.footer>
+        </motion.div>      </main>
 
       {/* Floating emergency button */}
       {/* <motion.button

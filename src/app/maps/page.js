@@ -168,7 +168,7 @@ export default function MapsPage() {
   return (
     <div className="flex flex-col items-center min-h-screen p-4">
       <motion.div
-        className="bg-gradient-to-r from-blue-600 to-teal-600 p-5 rounded-full mb-6"
+        className="bg-gradient-to-r from-green-600 to-teal-600 p-5 rounded-full mb-6"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, type: 'spring' }}
@@ -251,7 +251,7 @@ export default function MapsPage() {
           <span className="text-gray-600">Low Severity Disaster</span>
         </div>
         <div className="flex items-center">
-          <div className="w-4 h-4 bg-blue-500 rounded-full mr-2"></div>
+          <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
           <span className="text-gray-600">Pending/Emergency Request</span>
         </div>
       </motion.div>
@@ -265,7 +265,7 @@ export default function MapsPage() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="py-3 px-6 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-xl shadow-md"
+          className="py-3 px-6 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl shadow-md"
           onClick={() => setShowDisasters(!showDisasters)}
         >
           {showDisasters ? 'Hide Nearby Disasters and Requests' : 'View Nearby Disasters and Requests'}

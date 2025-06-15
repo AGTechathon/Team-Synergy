@@ -158,7 +158,7 @@ export default function LiveChatPage() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <div className="bg-gradient-to-r from-blue-600 to-teal-600 p-5 rounded-full mb-6">
+      <div className="bg-gradient-to-r from-green-600 to-teal-600 p-5 rounded-full mb-6">
         <FiActivity size={40} className="text-white" />
       </div>
       <h2 className="text-3xl font-bold text-gray-800 mb-4">Live Chat</h2>
@@ -176,18 +176,17 @@ export default function LiveChatPage() {
 
       {/* Group Creation and Selection */}
       <div className="w-full max-w-md mb-6">
-        <div className="flex items-center mb-4">
-          <input
+        <div className="flex items-center mb-4">          <input
             type="text"
             placeholder="New group name"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500"
             value={newGroupName}
             onChange={(e) => setNewGroupName(e.target.value)}
           />
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-xl flex items-center"
+            className="ml-2 px-4 py-2 bg-green-600 text-white rounded-xl flex items-center"
             onClick={createGroup}
           >
             <FiPlus className="mr-2" />
@@ -199,10 +198,9 @@ export default function LiveChatPage() {
             <motion.button
               key={group}
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-4 py-2 rounded-xl ${
+              whileTap={{ scale: 0.95 }}              className={`px-4 py-2 rounded-xl ${
                 currentGroup === group
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-green-600 text-white'
                   : 'bg-gray-200 text-gray-700'
               }`}
               onClick={() => joinGroup(group)}
@@ -243,9 +241,8 @@ export default function LiveChatPage() {
               }`}
             >
               <div
-                className={`inline-block p-3 rounded-lg ${
-                  msg.username === username
-                    ? 'bg-blue-600 text-white'
+                className={`inline-block p-3 rounded-lg ${                  msg.username === username
+                    ? 'bg-green-600 text-white'
                     : 'bg-gray-200 text-gray-800'
                 }`}
               >
@@ -259,9 +256,8 @@ export default function LiveChatPage() {
         </div>
         <div className="flex items-center p-2 border-t border-gray-200">
           <input
-            type="text"
-            placeholder="Type a message..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500"
+            type="text"            placeholder="Type a message..."
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
@@ -269,7 +265,7 @@ export default function LiveChatPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-xl flex items-center"
+            className="ml-2 px-4 py-2 bg-green-600 text-white rounded-xl flex items-center"
             onClick={sendMessage}
           >
             <FiSend />
