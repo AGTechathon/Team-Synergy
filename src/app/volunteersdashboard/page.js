@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { jwtDecode } from 'jwt-decode';
@@ -11,21 +12,40 @@ export default function VolunteersDashboard() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [volunteerId, setVolunteerId] = useState(null);
-  const [actionLoading, setActionLoading] = useState({});
+  const router = useRouter();
 
+  // Helper function to handle authentication errors
+  const handleAuthError = (response, errorMessage) => {
+    if (response.status === 401 || response.status === 403 || 
+        errorMessage.includes('token') || errorMessage.includes('expired') || 
+        errorMessage.includes('invalid')) {
+      localStorage.removeItem('token');
+      router.push('/login');
+      return true;
+    }
+    return false;
+  };
+  const [actionLoading, setActionLoading] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('Checking for token in localStorage...');
         const token = localStorage.getItem('token');
+        console.log('Token found:', token ? 'Yes' : 'No');
+        
         if (!token) {
           throw new Error('No authentication token found. Please log in.');
         }
 
+        console.log('Decoding token...');
         const decoded = jwtDecode(token);
+        console.log('Decoded token:', decoded);
+        
         if (!decoded.id) {
           throw new Error('Invalid token: Volunteer ID not found.');
         }
         setVolunteerId(decoded.id);
+        console.log('Volunteer ID set:', decoded.id);
 
         const response = await fetch('/api/staff/volunteersdashboard', {
           method: 'GET',
@@ -33,11 +53,16 @@ export default function VolunteersDashboard() {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
-        });
-
-        if (!response.ok) {
+        });        if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to fetch requests');
+          const errorMessage = errorData.error || 'Failed to fetch requests';
+          
+          // If token is invalid or expired, redirect to login
+          if (handleAuthError(response, errorMessage)) {
+            return;
+          }
+          
+          throw new Error(errorMessage);
         }
 
         const data = await response.json();
@@ -66,9 +91,7 @@ export default function VolunteersDashboard() {
 
       if (!volunteerId) {
         throw new Error('Volunteer ID not found. Please refresh the page.');
-      }
-
-      const response = await fetch(`/api/staff/volunteersdashboard`, {
+      }      const response = await fetch(`/api/staff/volunteersdashboard`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -78,8 +101,24 @@ export default function VolunteersDashboard() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to accept request');
+        let errorMessage = 'Failed to accept request';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+          if (errorData.details) {
+            console.error('Server error details:', errorData.details);
+          }
+        } catch (parseError) {
+          console.error('Failed to parse error response:', parseError);
+          errorMessage = `Server error (${response.status}): ${response.statusText}`;
+        }
+        
+        // Check for authentication errors
+        if (handleAuthError(response, errorMessage)) {
+          return;
+        }
+        
+        throw new Error(errorMessage);
       }
 
       const updatedRequest = await response.json();
@@ -141,18 +180,25 @@ export default function VolunteersDashboard() {
       setError(error.message);
     } finally {
       setActionLoading(prev => ({ ...prev, [`complete-${requestId}`]: false }));
-    }
-  };
+    }  };
+
   const handleEmergencyRequest = async (requestId) => {
     setActionLoading(prev => ({ ...prev, [`emergency-${requestId}`]: true }));
     setError('');
     setSuccess('');
     
     try {
+      console.log('Emergency Request Debug:');
+      console.log('- requestId:', requestId);
+      console.log('- volunteerId:', volunteerId);
+      
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found. Please log in.');
       }
+
+      console.log('Emergency request - Token found:', token ? 'Yes' : 'No');
+      console.log('Emergency request - Volunteer ID:', volunteerId);
 
       if (!volunteerId) {
         throw new Error('Volunteer ID not found. Please refresh the page.');
@@ -383,7 +429,7 @@ export default function VolunteersDashboard() {
                         >
                           Accept
                         </button>
-                      ) : request.status === 'accepted' && request.assigned_to === volunteerId ? (
+                      ) : request.status === 'assigned' && request.assigned_volunteer_id === volunteerId ? (
                         <div className="flex space-x-2">
                           <button
                             onClick={() => handleCompleteRequest(request.id)}
@@ -400,7 +446,7 @@ export default function VolunteersDashboard() {
                         </div>
                       ) : (
                         <span className="text-gray-500">
-                          {request.assigned_to === volunteerId
+                          {request.assigned_volunteer_id === volunteerId
                             ? request.status === 'completed'
                               ? 'Completed by You'
                               : 'Emergency Reported'
