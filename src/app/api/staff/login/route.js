@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import pool from "../../../../../lib/db";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export async function POST(req) {
   let body;
@@ -41,14 +42,28 @@ export async function POST(req) {
     if (!isMatch) {
       client.release();
       return NextResponse.json({ message: "Invalid credentials." }, { status: 401 });
-    }
+    }    client.release();
 
-    client.release();
+    // Generate JWT token
+    const token = jwt.sign(
+      { 
+        id: staff.id, 
+        contact: staff.contact, 
+        role: staff.role || 'staff',
+        type: 'staff'
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
 
-    // Return success response with staff details (excluding password)
+    // Return success response with staff details and token
     const { password: _, ...staffWithoutPassword } = staff;
     return NextResponse.json(
-      { message: "Login successful.", staff: staffWithoutPassword },
+      { 
+        message: "Login successful.", 
+        staff: staffWithoutPassword,
+        token: token
+      },
       { status: 200 }
     );
 
