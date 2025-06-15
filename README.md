@@ -141,6 +141,36 @@ The backend is now fully functional and ready for presentation with:
 
 ---
 
+## WhatsApp Setup Instructions
+
+### Automatic WhatsApp Messages (CallMeBot API)
+
+To enable automatic WhatsApp message sending, you need to set up CallMeBot API:
+
+#### Step 1: Get CallMeBot API Key
+1. Add CallMeBot to your WhatsApp contacts: `+34 644 59 71 67`
+2. Send a WhatsApp message to CallMeBot with the text: `I allow callmebot to send me messages`
+3. You'll receive a reply with your API key
+
+#### Step 2: Add API Key to Environment
+Add to your `.env.local` file:
+```
+CALLMEBOT_API_KEY=your_api_key_here
+```
+
+#### Step 3: Test the Integration
+The system will automatically send WhatsApp messages when configured properly.
+
+### Manual WhatsApp (Current Implementation)
+- Click on the WhatsApp links in the alert success message
+- This opens WhatsApp Web with pre-filled message
+- Click "Send" to deliver the message
+
+### Alternative: WhatsApp Business API
+For production use, consider WhatsApp Business API for more reliable delivery.
+
+---
+
 🤝 Contributing
 # 1. Fork the repository
 # (Click the "Fork" button on the top right of the GitHub page)

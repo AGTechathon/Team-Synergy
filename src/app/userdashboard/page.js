@@ -802,82 +802,135 @@ useEffect(() => {
   };
 
   fetchVolunteers();
-}, []);
-  const handleSendAlert = async () => {
+}, []);  const handleSendAlert = async () => {
   setError('');
   setSuccessMessage('');
   setIsLoading(true);
 
-  if (!emergencyType) {
-    setError('Please select an emergency type');
-    setIsLoading(false);
-    return;
-  }
-  
-  if (!Array.isArray(volunteers) || volunteers.length === 0) {
-    setError('No volunteers available to notify');
-    setIsLoading(false);
-    return;
-  }
-
-  // Prepare alert data
-  const alertData = {
-    emergencyType,
-    description,
-    message: `EMERGENCY ALERT: ${emergencyType}
-              ${description ? `Details: ${description}` : ''}
-              ${Array.isArray(volunteers) && volunteers.length > 0 
-                ? `Volunteers needed with skills in: ${[...new Set(volunteers.map(v => v.skills || 'General'))].join(', ')}`
-                : 'Volunteers needed for assistance'}`
-  };
-
   try {
-    // Send SMS alerts
-    const smsResponse = await fetch('/api/alerts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(alertData),
-    });
+    console.log('Starting alert send process...');
+    console.log('Emergency Type:', emergencyType);
+    console.log('Volunteers count:', volunteers.length);
 
-    let smsResult = null;
-    if (smsResponse.ok) {
-      smsResult = await smsResponse.json();
-    }
-
-    // Send WhatsApp alerts (using links method as it doesn't require API setup)
-    const whatsappResponse = await fetch('/api/whatsapp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contacts: volunteers,
-        message: alertData.message,
-        method: 'links' // Generate WhatsApp Web links
-      }),
-    });
-
-    let whatsappResult = null;
-    if (whatsappResponse.ok) {
-      whatsappResult = await whatsappResponse.json();
-    }
-
-    // Prepare success message
-    let successMsg = '';
-    if (smsResult && smsResult.successfulSends > 0) {
-      successMsg += `SMS sent to ${smsResult.successfulSends}/${smsResult.totalRecipients} volunteers. `;
+    if (!emergencyType) {
+      setError('Please select an emergency type');
+      setIsLoading(false);
+      return;
     }
     
-    if (whatsappResult && whatsappResult.links && whatsappResult.links.length > 0) {
-      successMsg += `WhatsApp links generated for ${whatsappResult.links.length} volunteers. `;
-      
-      // Display WhatsApp links for manual sending
-      const linksHtml = whatsappResult.links.map(link => 
-        `<a href="${link.whatsappUrl}" target="_blank" class="text-blue-600 hover:underline">${link.name} (${link.phone})</a>`
-      ).join('<br>');
-      
-      successMsg += `<br><br><strong>WhatsApp Links:</strong><br>${linksHtml}`;
+    if (!Array.isArray(volunteers) || volunteers.length === 0) {
+      setError('No volunteers available to notify');
+      setIsLoading(false);
+      return;
     }
 
-    setSuccessMessage(successMsg || 'Alert processing completed');
+    // Prepare alert data
+    const alertData = {
+      emergencyType,
+      description,
+      message: `EMERGENCY ALERT: ${emergencyType}
+                ${description ? `Details: ${description}` : ''}
+                ${Array.isArray(volunteers) && volunteers.length > 0 
+                  ? `Volunteers needed with skills in: ${[...new Set(volunteers.map(v => v.skills || 'General'))].join(', ')}`
+                  : 'Volunteers needed for assistance'}`
+    };    console.log('Alert data prepared:', alertData);
+
+    // Send SMS alerts
+    let smsResult = null;
+    try {
+      const smsResponse = await fetch('/api/alerts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(alertData),
+      });
+
+      if (smsResponse.ok) {
+        smsResult = await smsResponse.json();
+      } else {
+        const errorData = await smsResponse.json().catch(() => ({}));
+        console.error('SMS API error:', errorData);
+        smsResult = { error: errorData.message || 'SMS sending failed' };
+      }
+    } catch (smsError) {
+      console.error('SMS sending error:', smsError);
+      smsResult = { error: 'SMS service unavailable' };
+    }    // Send WhatsApp alerts (using links method)
+    let whatsappResult = null;
+    try {
+      const whatsappResponse = await fetch('/api/whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contacts: volunteers,
+          message: alertData.message,
+          method: 'links' // Generate WhatsApp Web links
+        }),
+      });
+
+      if (whatsappResponse.ok) {
+        whatsappResult = await whatsappResponse.json();
+      } else {
+        const errorData = await whatsappResponse.json().catch(() => ({}));
+        console.error('WhatsApp API error:', errorData);
+        whatsappResult = { error: errorData.message || 'WhatsApp messaging failed' };
+      }
+    } catch (whatsappError) {
+      console.error('WhatsApp processing error:', whatsappError);
+      whatsappResult = { error: 'WhatsApp service unavailable' };
+    }// Prepare success message
+    let successMsg = '';
+    let hasErrors = false;
+    
+    // Handle SMS results
+    if (smsResult) {
+      if (smsResult.error) {
+        successMsg += `❌ SMS Error: ${smsResult.error} `;
+        hasErrors = true;
+      } else {
+        if (smsResult.successfulSends > 0) {
+          successMsg += `✅ SMS sent to ${smsResult.successfulSends}/${smsResult.totalRecipients} recipients. `;
+        }
+        if (smsResult.skippedSends > 0) {
+          successMsg += `⚠️ ${smsResult.skippedSends} numbers skipped (Twilio trial mode - only verified numbers receive SMS). `;
+        }
+        if (smsResult.failedSends > 0) {
+          successMsg += `❌ ${smsResult.failedSends} SMS failed to send. `;
+        }
+        if (smsResult.trialMode) {
+          successMsg += `<br><small>📝 Trial Mode: Only verified numbers (${smsResult.verifiedNumbers}) receive SMS.</small> `;
+        }
+      }
+    }    // Handle WhatsApp results
+    if (whatsappResult) {
+      if (whatsappResult.error) {
+        successMsg += `💬 WhatsApp: Links will be generated for manual sending. `;
+      } else if (whatsappResult.links && whatsappResult.links.length > 0) {        successMsg += `📱 WhatsApp links generated for ${whatsappResult.links.length} volunteers. `;
+        
+        // Display WhatsApp links for manual sending
+        const linksHtml = whatsappResult.links.map(link => 
+          `<a href="${link.whatsappUrl}" target="_blank" class="text-blue-600 hover:underline block py-1">${link.name} (${link.phone})</a>`
+        ).join('');
+        
+        successMsg += `<br><br><strong>📱 WhatsApp Links:</strong><br>${linksHtml}`;
+        successMsg += `<br><br><small class="text-gray-600">💡 Click the links above to open WhatsApp and send messages manually.<br>For automatic WhatsApp messages, set up CallMeBot API (see README).</small>`;
+      }
+      
+      if (whatsappResult && whatsappResult.setupRequired) {
+        successMsg += `<br><br><div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mt-2">
+          <strong>⚙️ WhatsApp Setup Required:</strong><br>
+          To enable automatic WhatsApp messages:<br>
+          1. Add CallMeBot to WhatsApp: +34 644 59 71 67<br>
+          2. Send message: "I allow callmebot to send me messages"<br>
+          3. Add your API key to .env.local file
+        </div>`;
+      }
+    }
+
+    if (hasErrors && !successMsg.includes('✅') && !successMsg.includes('📱')) {
+      setError(successMsg || 'Failed to send alerts. Please check your configuration.');
+    } else {
+      setSuccessMessage(successMsg || 'Alert processing completed');
+    }
     
   } catch (err) {
     console.error('Error sending alert:', err);
