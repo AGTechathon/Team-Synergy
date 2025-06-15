@@ -11,6 +11,7 @@ export default function VolunteersDashboard() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [volunteerId, setVolunteerId] = useState(null);
+  const [actionLoading, setActionLoading] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,10 +54,18 @@ export default function VolunteersDashboard() {
   }, []);
 
   const handleAcceptRequest = async (requestId) => {
+    setActionLoading(prev => ({ ...prev, [`accept-${requestId}`]: true }));
+    setError('');
+    setSuccess('');
+    
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found. Please log in.');
+      }
+
+      if (!volunteerId) {
+        throw new Error('Volunteer ID not found. Please refresh the page.');
       }
 
       const response = await fetch(`/api/staff/volunteersdashboard`, {
@@ -73,10 +82,12 @@ export default function VolunteersDashboard() {
         throw new Error(errorData.error || 'Failed to accept request');
       }
 
+      const updatedRequest = await response.json();
+
       setRequests((prevRequests) =>
         prevRequests.map((req) =>
           req.id === requestId
-            ? { ...req, status: 'accepted', assigned_to: volunteerId }
+            ? { ...req, ...updatedRequest }
             : req
         )
       );
@@ -84,14 +95,23 @@ export default function VolunteersDashboard() {
     } catch (error) {
       console.error('Error accepting request:', error);
       setError(error.message);
+    } finally {
+      setActionLoading(prev => ({ ...prev, [`accept-${requestId}`]: false }));
     }
   };
-
   const handleCompleteRequest = async (requestId) => {
+    setActionLoading(prev => ({ ...prev, [`complete-${requestId}`]: true }));
+    setError('');
+    setSuccess('');
+    
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found. Please log in.');
+      }
+
+      if (!volunteerId) {
+        throw new Error('Volunteer ID not found. Please refresh the page.');
       }
 
       const response = await fetch(`/api/staff/volunteersdashboard`, {
@@ -101,17 +121,17 @@ export default function VolunteersDashboard() {
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ requestId }),
-      });
-
-      if (!response.ok) {
+      });      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to mark request as completed');
       }
 
+      const updatedRequest = await response.json();
+
       setRequests((prevRequests) =>
         prevRequests.map((req) =>
           req.id === requestId
-            ? { ...req, status: 'completed' }
+            ? { ...req, ...updatedRequest }
             : req
         )
       );
@@ -119,14 +139,23 @@ export default function VolunteersDashboard() {
     } catch (error) {
       console.error('Error marking request as completed:', error);
       setError(error.message);
+    } finally {
+      setActionLoading(prev => ({ ...prev, [`complete-${requestId}`]: false }));
     }
   };
-
   const handleEmergencyRequest = async (requestId) => {
+    setActionLoading(prev => ({ ...prev, [`emergency-${requestId}`]: true }));
+    setError('');
+    setSuccess('');
+    
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found. Please log in.');
+      }
+
+      if (!volunteerId) {
+        throw new Error('Volunteer ID not found. Please refresh the page.');
       }
 
       const response = await fetch(`/api/staff/volunteersdashboard`, {
@@ -143,10 +172,12 @@ export default function VolunteersDashboard() {
         throw new Error(errorData.error || 'Failed to mark request as emergency');
       }
 
+      const updatedRequest = await response.json();
+
       setRequests((prevRequests) =>
         prevRequests.map((req) =>
           req.id === requestId
-            ? { ...req, status: 'emergency' }
+            ? { ...req, ...updatedRequest }
             : req
         )
       );
@@ -154,6 +185,8 @@ export default function VolunteersDashboard() {
     } catch (error) {
       console.error('Error marking request as emergency:', error);
       setError(error.message);
+    } finally {
+      setActionLoading(prev => ({ ...prev, [`emergency-${requestId}`]: false }));
     }
   };
 
