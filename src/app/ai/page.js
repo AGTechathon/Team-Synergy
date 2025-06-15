@@ -13,7 +13,7 @@ export default function AIChatPage() {
       animate={{ opacity: 1, y: 0 }}
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-teal-600 p-5 rounded-full mb-6">
+      <div className="bg-gradient-to-r from-green-600 to-teal-600 p-5 rounded-full mb-6">
         <FiActivity size={40} className="text-white" />
       </div>
       <h2 className="text-3xl font-bold text-gray-800 mb-4">AI Weather Assistant</h2>

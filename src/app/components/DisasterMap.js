@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
 });
 
 // Create custom icons for different types of markers
-const createCustomIcon = (color = 'blue', size = 'medium') => {
+const createCustomIcon = (color = 'green', size = 'medium') => {
   const sizeConfig = {
     small: [20, 32],
     medium: [25, 41],
@@ -109,7 +109,7 @@ function MapLegend() {
           <span>Medium Urgency Request</span>
         </div>
         <div className="flex items-center">
-          <div className="w-4 h-4 bg-blue-500 rounded-full mr-2 border border-white shadow-sm"></div>
+          <div className="w-4 h-4 bg-green-500 rounded-full mr-2 border border-white shadow-sm"></div>
           <span>Low Urgency Request</span>
         </div>
         <div className="flex items-center">
@@ -358,7 +358,7 @@ export default function DisasterMap({ disasters, requests, showDisasters, userLo
               ? '#EF4444' // Red for high/critical urgency
               : request.urgency === 'Medium'
                 ? '#F59E0B' // Orange for medium urgency
-                : '#3B82F6'; // Blue for low urgency
+                : '#10B981'; // Green for low urgency
 
           return (
             <Marker

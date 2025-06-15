@@ -99,10 +99,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-teal-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 p-4">
       {/* Decorative elements */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-20 left-10 w-64 h-64 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div className="absolute top-40 right-20 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-20 left-1/3 w-60 h-60 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
@@ -115,7 +115,7 @@ export default function LoginPage() {
       >
         <div className="text-center mb-10">
           <motion.div
-            className="mx-auto bg-blue-600 w-16 h-16 rounded-xl flex items-center justify-center shadow-lg"
+            className="mx-auto bg-green-600 w-16 h-16 rounded-xl flex items-center justify-center shadow-lg"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.5 }}
@@ -148,10 +148,9 @@ export default function LoginPage() {
         >
           {/* Tabs for login method */}
           <div className="flex border-b border-gray-200 text-gray-900 placeholder-gray-500">
-            <button
-              className={`flex-1 py-4 font-medium text-center transition-colors ${
+            <button              className={`flex-1 py-4 font-medium text-center transition-colors ${
                 loginMethod === 'email' 
-                  ? 'text-blue-600 border-b-2 border-blue-600' 
+                  ? 'text-green-600 border-b-2 border-green-600' 
                   : 'text-gray-500 hover:text-gray-700'
               }`}
               onClick={() => setLoginMethod('email')}
@@ -161,10 +160,9 @@ export default function LoginPage() {
                 Email
               </div>
             </button>
-            <button
-              className={`flex-1 py-4 font-medium text-center transition-colors ${
+            <button              className={`flex-1 py-4 font-medium text-center transition-colors ${
                 loginMethod === 'phone' 
-                  ? 'text-blue-600 border-b-2 border-blue-600' 
+                  ? 'text-green-600 border-b-2 border-green-600' 
                   : 'text-gray-500 hover:text-gray-700'
               }`}
               onClick={() => setLoginMethod('phone')}
@@ -188,9 +186,8 @@ export default function LoginPage() {
                       <FiMail className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
-                      type="email"
-                      placeholder="name@example.com"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
+                      type="email"                      placeholder="name@example.com"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-900 placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                     />
@@ -206,9 +203,8 @@ export default function LoginPage() {
                       <FiPhone className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
-                      type="tel"
-                      placeholder="+1 (555) 123-4567"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
+                      type="tel"                      placeholder="+1 (555) 123-4567"
+                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-900 placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                     />
@@ -221,7 +217,7 @@ export default function LoginPage() {
                   <label className="block text-sm font-medium text-gray-700">
                     Password
                   </label>
-                  <a href="#" className="text-sm text-blue-600 hover:underline">
+                  <a href="#" className="text-sm text-green-600 hover:underline">
                     Forgot password?
                   </a>
                 </div>
@@ -230,9 +226,8 @@ export default function LoginPage() {
                     <FiLock className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900 placeholder-gray-500"
+                    type={showPassword ? "text" : "password"}                    placeholder="Enter your password"
+                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-900 placeholder-gray-500"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -267,11 +262,10 @@ export default function LoginPage() {
               )}
 
               <motion.button
-                type="submit"
-                className={`w-full py-3.5 px-4 rounded-xl font-medium text-white shadow-md transition-all ${
+                type="submit"                className={`w-full py-3.5 px-4 rounded-xl font-medium text-white shadow-md transition-all ${
                   isLoading 
-                    ? 'bg-blue-400 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 hover:shadow-lg'
+                    ? 'bg-green-400 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 hover:shadow-lg'
                 }`}
                 whileHover={!isLoading ? { scale: 1.02 } : {}}
                 whileTap={!isLoading ? { scale: 0.98 } : {}}
@@ -330,7 +324,7 @@ export default function LoginPage() {
           <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 text-gray-900 placeholder-gray-500">
             <p className="text-sm text-center text-gray-600">
               Don't have an account?{' '}
-              <a href="/signup" className="font-medium text-blue-600 hover:text-blue-500 hover:underline">
+              <a href="/signup" className="font-medium text-green-600 hover:text-green-500 hover:underline">
                 Sign up
               </a>
             </p>
