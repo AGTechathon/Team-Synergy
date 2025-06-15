@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import WhatsAppService from "../../../lib/whatsapp";
+import WhatsAppService from "../../../../lib/whatsapp";
 
 const whatsappService = new WhatsAppService();
 
@@ -49,14 +49,10 @@ export async function POST(req) {
         failedSends: failCount
       });
     }
-
   } catch (error) {
-    console.error('WhatsApp API Error:', error);
+    console.error('WhatsApp API error:', error);
     return NextResponse.json(
-      { 
-        message: "Failed to process WhatsApp messages",
-        error: error.message 
-      },
+      { message: "Failed to process WhatsApp request", error: error.message },
       { status: 500 }
     );
   }

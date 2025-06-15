@@ -139,8 +139,9 @@ ON CONFLICT DO NOTHING;
 -- Sample volunteer data
 INSERT INTO volunteers (name, contact, skills, location, availability, status)
 VALUES 
-    ('Dr. Arjun Sharma', '+91-9876543210', 'Medical Aid, First Aid', 'New Delhi', 'available', 'verified'),
+    ('Dr. Arjun Sharma', '+919876543210', 'Medical Aid, First Aid', 'New Delhi', 'available', 'verified'),
     ('Priya Patel', 'priya.patel@email.com', 'Search and Rescue, Swimming', 'Mumbai', 'available', 'verified'),
-    ('Rahul Singh', '+91-9322668584', 'Technical Rescue, Communications', 'Bangalore', 'available', 'active'),
-    ('Emergency Response Team', '+91-9667033839', 'Emergency Response, Crisis Management', 'Mumbai', 'available', 'verified')
+    ('Aakif Mudel', '+919322668584', 'Technical Rescue, Communications', 'Mumbai', 'available', 'verified'),
+    ('Wajid Daud Tamboli', '+919667033839', 'Emergency Response, Crisis Management', 'Mumbai', 'available', 'verified'),
+    ('Abubakar Chanda', '+919356724732', 'Search and Rescue, Medical Aid', 'Mumbai', 'available', 'verified')
 ON CONFLICT DO NOTHING;
