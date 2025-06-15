@@ -80,9 +80,15 @@ export default function LoginPage() {
       } catch (jsonErr) {
         console.error("Failed to parse response as JSON:", jsonErr);
         throw new Error("Server did not return valid JSON. See console for raw response.");
-      }
+      }      if (!res.ok) throw new Error(data.message || 'Login failed');
 
-      if (!res.ok) throw new Error(data.message || 'Login failed');
+      // Store the token in localStorage if provided
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        console.log('Token stored in localStorage');
+      } else {
+        console.warn('No token received from server');
+      }
 
       router.push('/volunteersdashboard');
     } catch (err) {
