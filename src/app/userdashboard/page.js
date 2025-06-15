@@ -488,11 +488,10 @@ function RequestPage() {
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <FiUser className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
+                    </div>                    <input
                       type="text"
                       placeholder="John Doe"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
                       value={name}
                       onChange={(e) => setName(e.target.value.trim())}
                       required
@@ -505,11 +504,10 @@ function RequestPage() {
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <FiPhone className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
+                    </div>                    <input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                       required
@@ -527,12 +525,11 @@ function RequestPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Request Type</label>
                   <div className="grid grid-cols-2 gap-3">
                     {requestTypes.map((reqType, index) => (
-                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">
-                        <input
+                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">                        <input
                           type="radio"
                           name="type"
                           value={reqType}
-                          className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                          className="h-4 w-4 text-blue-600 border-2 border-gray-800 bg-white rounded focus:ring-blue-500"
                           checked={type === reqType}
                           onChange={(e) => setType(e.target.value)}
                           required
@@ -547,12 +544,11 @@ function RequestPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Urgency Level</label>
                   <div className="grid grid-cols-2 gap-3">
                     {urgencyLevels.map((level, index) => (
-                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">
-                        <input
+                      <label key={index} className="flex items-center bg-gray-50 rounded-lg p-3 cursor-pointer hover:bg-blue-50">                        <input
                           type="radio"
                           name="urgency"
                           value={level}
-                          className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+                          className="h-4 w-4 text-blue-600 border-2 border-gray-800 bg-white rounded focus:ring-blue-500"
                           checked={urgency === level}
                           onChange={(e) => setUrgency(e.target.value)}
                           required
@@ -568,10 +564,9 @@ function RequestPage() {
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <FiMessageSquare className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <textarea
+                    </div>                    <textarea
                       placeholder="Describe your request (e.g., need medical supplies for 10 people)"
-                      className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
                       rows="4"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
@@ -591,12 +586,11 @@ function RequestPage() {
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <FiMapPin className="h-5 w-5 text-gray-400" />
-                      </div>
-                      <input
+                      </div>                      <input
                         type="number"
                         step="any"
                         placeholder="e.g., 40.7128"
-                        className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
                         value={latitude}
                         onChange={(e) => setLatitude(e.target.value)}
                         required
@@ -609,12 +603,11 @@ function RequestPage() {
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <FiMapPin className="h-5 w-5 text-gray-400" />
-                      </div>
-                      <input
+                      </div>                      <input
                         type="number"
                         step="any"
                         placeholder="e.g., -74.0060"
-                        className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        className="w-full pl-10 pr-3 py-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
                         value={longitude}
                         onChange={(e) => setLongitude(e.target.value)}
                         required
@@ -640,11 +633,10 @@ function RequestPage() {
 
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Upload Image (Optional)</label>
-                  <div className="relative">
-                    <input
+                  <div className="relative">                    <input
                       type="file"
                       accept="image/jpeg,image/png,image/gif"
-                      className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                      className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       onChange={handleImageChange}
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -798,19 +790,19 @@ useEffect(() => {
       
       if (!response.ok) {
         throw new Error('Failed to fetch volunteers');
-      }
-      
-      const data = await response.json();
-      setVolunteers(data);
+      }      const data = await response.json();
+      // Handle both direct array and nested structure
+      const volunteersArray = data.volunteers || data || [];
+      setVolunteers(Array.isArray(volunteersArray) ? volunteersArray : []);
     } catch (err) {
       console.error('Error fetching volunteers:', err);
+      setVolunteers([]); // Ensure volunteers is always an array
       setError('Failed to load volunteer data');
     }
   };
 
   fetchVolunteers();
 }, []);
-
   const handleSendAlert = async () => {
   setError('');
   setSuccessMessage('');
@@ -821,8 +813,8 @@ useEffect(() => {
     setIsLoading(false);
     return;
   }
-
-  if (volunteers.length === 0) {
+  
+  if (!Array.isArray(volunteers) || volunteers.length === 0) {
     setError('No volunteers available to notify');
     setIsLoading(false);
     return;
@@ -834,23 +826,59 @@ useEffect(() => {
     description,
     message: `EMERGENCY ALERT: ${emergencyType}
               ${description ? `Details: ${description}` : ''}
-              Volunteers needed with skills in: ${[...new Set(volunteers.map(v => v.skills))].join(', ')}`
+              ${Array.isArray(volunteers) && volunteers.length > 0 
+                ? `Volunteers needed with skills in: ${[...new Set(volunteers.map(v => v.skills || 'General'))].join(', ')}`
+                : 'Volunteers needed for assistance'}`
   };
 
   try {
-    const response = await fetch('/api/alerts', {
+    // Send SMS alerts
+    const smsResponse = await fetch('/api/alerts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(alertData),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to send alert');
+    let smsResult = null;
+    if (smsResponse.ok) {
+      smsResult = await smsResponse.json();
     }
 
-    const result = await response.json();
-    setSuccessMessage(`Alert sent to ${result.totalRecipients} volunteers (${result.successfulSends} successful)`);
+    // Send WhatsApp alerts (using links method as it doesn't require API setup)
+    const whatsappResponse = await fetch('/api/whatsapp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contacts: volunteers,
+        message: alertData.message,
+        method: 'links' // Generate WhatsApp Web links
+      }),
+    });
+
+    let whatsappResult = null;
+    if (whatsappResponse.ok) {
+      whatsappResult = await whatsappResponse.json();
+    }
+
+    // Prepare success message
+    let successMsg = '';
+    if (smsResult && smsResult.successfulSends > 0) {
+      successMsg += `SMS sent to ${smsResult.successfulSends}/${smsResult.totalRecipients} volunteers. `;
+    }
+    
+    if (whatsappResult && whatsappResult.links && whatsappResult.links.length > 0) {
+      successMsg += `WhatsApp links generated for ${whatsappResult.links.length} volunteers. `;
+      
+      // Display WhatsApp links for manual sending
+      const linksHtml = whatsappResult.links.map(link => 
+        `<a href="${link.whatsappUrl}" target="_blank" class="text-blue-600 hover:underline">${link.name} (${link.phone})</a>`
+      ).join('<br>');
+      
+      successMsg += `<br><br><strong>WhatsApp Links:</strong><br>${linksHtml}`;
+    }
+
+    setSuccessMessage(successMsg || 'Alert processing completed');
+    
   } catch (err) {
     console.error('Error sending alert:', err);
     setError(err.message || 'Failed to send alert. Please try again.');
@@ -891,9 +919,8 @@ useEffect(() => {
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Emergency Details</h3>
         
         <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Type*</label>
-          <select
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+          <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Type*</label>          <select
+            className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             value={emergencyType}
             onChange={(e) => setEmergencyType(e.target.value)}
             required
@@ -903,22 +930,45 @@ useEffect(() => {
               <option key={index} value={type}>{type}</option>
             ))}
           </select>
-        </div>
-
-        <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Additional Details (Optional)</label>
-          <textarea
+        </div>        <div className="mb-5">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Additional Details (Optional)</label>          <textarea
             placeholder="Provide more details about the emergency..."
-            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            className="w-full p-3 border-2 border-gray-800 bg-white text-gray-900 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-gray-500"
             rows="3"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
-        <div className="mb-4 p-3 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-800">
-            <strong>Note:</strong> This alert will be sent to all {volunteers.length} registered volunteers.
+        <div className="mb-5">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Notification Methods</label>
+          <div className="space-y-2">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={true}
+                disabled
+                className="h-4 w-4 text-blue-600 border-2 border-gray-400 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-gray-700">📱 SMS (Always enabled)</span>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={true}
+                readOnly
+                className="h-4 w-4 text-green-600 border-2 border-gray-400 rounded focus:ring-green-500"
+              />
+              <span className="ml-2 text-gray-700">💬 WhatsApp Links (Auto-generated)</span>
+            </label>
+          </div>
+          <p className="text-xs text-gray-500 mt-2">
+            WhatsApp links will be generated for manual sending - click the links that appear after sending the alert.
+          </p>
+        </div>
+
+        <div className="mb-4 p-3 bg-blue-50 rounded-lg"><p className="text-sm text-blue-800">
+            <strong>Note:</strong> This alert will be sent to all {Array.isArray(volunteers) ? volunteers.length : 0} registered volunteers.
           </p>
         </div>
 
@@ -931,16 +981,19 @@ useEffect(() => {
             <FiAlertTriangle className="h-5 w-5 mr-2" />
             <span>{error}</span>
           </motion.div>
-        )}
-
-        {successMessage && (
+        )}        {successMessage && (
           <motion.div
-            className="flex items-center p-3 bg-green-50 text-green-700 rounded-lg border border-green-200 mb-4"
+            className="p-3 bg-green-50 text-green-700 rounded-lg border border-green-200 mb-4 max-h-48 overflow-y-auto"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <FiSend className="h-5 w-5 mr-2" />
-            <span>{successMessage}</span>
+            <div className="flex items-start">
+              <FiSend className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
+              <div 
+                className="text-sm"
+                dangerouslySetInnerHTML={{ __html: successMessage }}
+              />
+            </div>
           </motion.div>
         )}
 

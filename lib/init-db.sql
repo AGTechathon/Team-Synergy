@@ -141,5 +141,6 @@ INSERT INTO volunteers (name, contact, skills, location, availability, status)
 VALUES 
     ('Dr. Arjun Sharma', '+91-9876543210', 'Medical Aid, First Aid', 'New Delhi', 'available', 'verified'),
     ('Priya Patel', 'priya.patel@email.com', 'Search and Rescue, Swimming', 'Mumbai', 'available', 'verified'),
-    ('Rahul Singh', '+91-9765432109', 'Technical Rescue, Communications', 'Bangalore', 'available', 'active')
+    ('Rahul Singh', '+91-9322668584', 'Technical Rescue, Communications', 'Bangalore', 'available', 'active'),
+    ('Emergency Response Team', '+91-9667033839', 'Emergency Response, Crisis Management', 'Mumbai', 'available', 'verified')
 ON CONFLICT DO NOTHING;
