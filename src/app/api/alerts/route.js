@@ -28,12 +28,11 @@ export async function POST(request) {
     const { emergencyType, description, message } = await request.json();
     
     const client = await pool.connect();
-    
-    // 1. Get all volunteers and users
+      // 1. Get all volunteers and users
     const { rows: volunteers } = await client.query(`
       SELECT id, name, contact, skills
       FROM volunteers
-      WHERE status = 'active'
+      WHERE status IN ('active', 'verified')
     `);
 
     const { rows: users } = await client.query(`

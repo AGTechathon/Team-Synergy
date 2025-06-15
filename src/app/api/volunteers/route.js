@@ -4,11 +4,10 @@ import pool from "../../../../lib/db";
 export async function GET(req) {
   try {
     const client = await pool.connect();
-    
-    const query = `
+      const query = `
       SELECT id, name, contact, skills, location, availability, status, created_at
       FROM volunteers 
-      WHERE status = 'active'
+      WHERE status IN ('active', 'verified')
       ORDER BY created_at DESC
     `;
     
